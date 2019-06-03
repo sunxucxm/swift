@@ -21,12 +21,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         self.tableView?.delegate = self
         self.tableView?.dataSource = self
         self.view.addSubview(tableView!)
-       
-        
-//        let vc: ViewVC = ViewVC()
-//        vc.name = "ddd"
-        
-        
+
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -75,11 +70,15 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         case 7:
             vc = CollectionViewVC()
         case 8:
-            vc = DelegateVC()
+            vc = TbaleViewViewController()
         case 9:
             vc = DelegateVC()
+        case 10:
+            vc = ClosureVC()
+        case 11:
+            vc = ExtensionVC()
         default:
-            vc = ImageViewVC()
+            vc = ClosureVC()
         }
         
         self.navigationController?.pushViewController(vc, animated: true)

@@ -13,6 +13,7 @@ import UIKit
 class CollectionViewCELL :UICollectionViewCell{
     var titleLabel:UILabel?//title
     
+   
     override init(frame: CGRect) {
         super.init(frame: frame)
         initView()

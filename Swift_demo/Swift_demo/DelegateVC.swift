@@ -8,11 +8,14 @@
 
 import UIKit
 
-class DelegateVC: UIViewController,SomeProtocol {
+class DelegateVC: UIViewController,SomeProtocol, CustomViewDelegate {
 
     
-    
-    
+    func play() {
+        
+        costomView?.removeFromSuperview()
+    }
+    var costomView: CustomView?
     //在协议中定义类方法的时候，总是使用 static 关键字作为前缀。当类类型遵循协议时，除了 static 关键字，还可以使用 class 关键字作为前缀
     class func someTypeMethod() {
         
@@ -34,10 +37,12 @@ class DelegateVC: UIViewController,SomeProtocol {
         self.view.backgroundColor = UIColor.white
         var lightSwitch = OnOffSwitch.off
         lightSwitch.toggle()
+        
+        costomView = CustomView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+        costomView?.delegate = self
+        self.view.addSubview(costomView!)
     }
     
-
-   
 
 }
 
@@ -223,13 +228,87 @@ class Counter {
 
 
 
+class Dice {
+    let sides: Int
+    let generator: RandomNumberGenerator
+    init(sides: Int, generator: RandomNumberGenerator) {
+        self.sides = sides
+        self.generator = generator
+    }
+//    func roll() -> Int {
+//        return Int(generator.random() * Double(sides)) + 1
+//    }
+}
+
+protocol DiceGame {
+  
+    func play()
+}
+protocol DiceGameDelegate {
+    func gameDidStart( _ game: DiceGame)
+    func game(_ game: DiceGame, didStartNewTurnWithDiceRoll diceRoll: Int)
+    func gameDidEnd(_ game: DiceGame)
+}
+
+class SnakesAndLadders: DiceGame {
+    let finalSquare = 25
+    
+    var square = 0
+    var board: [Int]
+    init() {
+        board = [Int](repeating: 0, count: finalSquare + 1)
+        board[03] = +08; board[06] = +11; board[09] = +09; board[10] = +02
+        board[14] = -10; board[19] = -11; board[22] = -02; board[24] = -08
+    }
+    var delegate: DiceGameDelegate?
+    func play() {
+        square = 0
+        delegate?.gameDidStart(self)
+        gameLoop: while square != finalSquare {
+//            let diceRoll = dice.roll()
+//            delegate?.game(self, didStartNewTurnWithDiceRoll: diceRoll)
+//            switch square + diceRoll {
+//            case finalSquare:
+//                break gameLoop
+//            case let newSquare where newSquare > finalSquare:
+//                continue gameLoop
+//            default:
+//                square += diceRoll
+//                square += board[square]
+//            }
+        }
+        delegate?.gameDidEnd(self)
+    }
+}
 
 
+class CustomView: UIView {
+    
+    var delegate: CustomViewDelegate?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.blue
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(click))
+        self.addGestureRecognizer(tap)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    @objc func click() {
+        
+        self.delegate?.play()
+    }
+}
 
-
-
-
-
+protocol CustomViewDelegate {
+    
+    func play()
+}
 
 
 

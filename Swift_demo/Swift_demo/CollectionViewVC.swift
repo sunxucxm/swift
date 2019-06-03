@@ -74,7 +74,6 @@ class CollectionViewVC: UIViewController,UICollectionViewDelegate,UICollectionVi
     }
     
     
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize.init(width: UIScreen.main.bounds.size.width, height: 50)
     }
