@@ -14,7 +14,7 @@ class ExtensionVC: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.white
-        self.title ="扩展"
+        self.title = "扩展";
     }
     
 
