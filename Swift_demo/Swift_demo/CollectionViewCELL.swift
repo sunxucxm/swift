@@ -12,7 +12,10 @@ import UIKit
 
 class CollectionViewCELL :UICollectionViewCell{
     var titleLabel:UILabel?//title
-    
+   
+    deinit {
+        print("")
+    }
    
     override init(frame: CGRect) {
         super.init(frame: frame)

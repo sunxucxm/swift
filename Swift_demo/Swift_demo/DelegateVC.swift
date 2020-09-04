@@ -18,7 +18,7 @@ class DelegateVC: UIViewController,SomeProtocol, CustomViewDelegate {
     var costomView: CustomView?
     //在协议中定义类方法的时候，总是使用 static 关键字作为前缀。当类类型遵循协议时，除了 static 关键字，还可以使用 class 关键字作为前缀
     class func someTypeMethod() {
-        
+
     }
     
     /*static 能修饰class/struct/enum的计算属性、存储属性、类型方法;class能修饰类的计算属性和类方法 static修饰的类方法不能继承；class修饰的类方法可以继承 在protocol中要使用static*/
@@ -46,14 +46,18 @@ class DelegateVC: UIViewController,SomeProtocol, CustomViewDelegate {
 
 }
 
-protocol SomeProtocol {
+/*可以通过协议扩展来为协议要求的属性、方法以及下标提供默认的实现。如果遵循协议的类型为这些要求提供了自己的实现，那么这些自定义实现将会替代扩展中的默认实现被使用。
+通过协议扩展为协议要求提供的默认实现和可选的协议要求不同。虽然在这两种情况下，遵循协议的类型都无需自己实现这些要求，但是通过扩展提供的默认实现可以直接调用，而无需使用可选链式调用。
+ */
+
+
+ protocol SomeProtocol {
     static var someTypeProperty: Int { get set }
     var mustBeSettable: Int { get set }
     
 //    如果协议要求属性是可读可写的，那么该属性不能是常量属性或只读的计算型属性。如果协议只要求属性是可读的，那么该属性不仅可以是可读的，如果代码需要的话，还可以是可写的。
     var doesNotNeedToBeSettable: Int { get }
-    
-    static func someTypeMethod()
+     static func someTypeMethod()
 }
 
 
